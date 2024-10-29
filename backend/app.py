@@ -71,14 +71,14 @@ def update():
 def delete():
     if request.method == 'DELETE':
         data = request.json
-        todo_id = data.get('id')
+        todo = data.get('todo')
         
         conn = get_db_connection()
         cur = conn.cursor()
         
         cur.execute(
-            'DELETE FROM todos WHERE id = %s',
-            (todo_id,)
+            'DELETE FROM todos WHERE todo = %s',
+            (todo,)
         )
         
         conn.commit()

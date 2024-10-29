@@ -23,6 +23,6 @@ DELETE http://localhost:5000/api/v1/delete
 Content-Type: application/json
 
 {
-    "id" : 10
+    "todo" : "test"
 }
 
