@@ -20,13 +20,14 @@ jobs:
           python-version: "3.9"
 
       - name: Set up PostgreSQL
-        uses: ./backend
-        with:
-          username: guest
-          password: guest-password
-          database: todo_db
-          port: 5432
-          ssl: true
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql postgresql-contrib
+          sudo service postgresql start
+          sudo -u postgres psql -c "CREATE DATABASE todo_db;"
+          sudo -u postgres psql -c "CREATE USER guest WITH PASSWORD 'guest-password';"
+          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE todo_db TO guest;"
+
 
       - name: Install dependencies
         run: |
