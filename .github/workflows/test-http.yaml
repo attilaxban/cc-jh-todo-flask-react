@@ -50,11 +50,11 @@ jobs:
 
           http GET http://127.0.0.1:5000/api/v1/todos
 
-          http PATCH http://127.0.0.1:5000/api/v1/update \
+          http --ignore-stdin PATCH http://127.0.0.1:5000/api/v1/update \
             Content-Type:application/json \
             todo="test" \
             isFinished=true
 
-          http DELETE http://127.0.0.1:5000/api/v1/delete \
+          http --ignore-stdin DELETE http://127.0.0.1:5000/api/v1/delete \
             Content-Type:application/json \
             todo="test"
