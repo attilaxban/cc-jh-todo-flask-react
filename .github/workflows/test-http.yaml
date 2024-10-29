@@ -9,31 +9,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install HTTPie
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y httpie
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9' 
+          python-version: "3.9"
 
       - name: Install dependencies
         run: |
           cd backend
           pip install -r requirements.txt
 
-      - name: Run Flask
+      - name: Run Flask && HTTP requests
         run: |
           cd backend
           export FLASK_APP=app
           export FLASK_ENV=development
           nohup flask run --host=0.0.0.0 --port=5000 & 
           sleep 5 
-
-      - name: Install HTTPie
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y httpie
-
-      - name: Run HTTP requests
-        run: |
           http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
             Content-Type:application/json \
             todo="test"
