@@ -41,8 +41,8 @@ jobs:
           cd backend
           export FLASK_APP=app
           export FLASK_ENV=development
-          export USER_NAME=${{secrets.USER_NAME}}
-          export PASSWORD=g${{secrets.PASSWORD}}
+          # export USER_NAME=${{secrets.USER_NAME}}
+          # export PASSWORD=g${{secrets.PASSWORD}}
           python3 init_db.py
           nohup flask run --host=0.0.0.0 --port=5000 & 
           sleep 5
