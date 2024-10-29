@@ -1,60 +1,60 @@
-name: Run HTTP Requests
+# name: Run HTTP Requests
 
-on: [push]
+# on: [push]
 
-jobs:
-  run-http-requests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+# jobs:
+#   run-http-requests:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Install HTTPie
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y httpie
+#       - name: Install HTTPie
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y httpie
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: "3.9"
 
-      - name: Set up PostgreSQL
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql postgresql-contrib
-          sudo service postgresql start
-          sudo -u postgres psql -c "CREATE DATABASE todo_db;"
-          sudo -u postgres psql -c "CREATE USER guest WITH PASSWORD 'guest-password';"
-          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE todo_db TO guest;"
+#       - name: Set up PostgreSQL
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y postgresql postgresql-contrib
+#           sudo service postgresql start
+#           sudo -u postgres psql -c "CREATE DATABASE todo_db;"
+#           sudo -u postgres psql -c "CREATE USER guest WITH PASSWORD 'guest-password';"
+#           sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE todo_db TO guest;"
 
 
-      - name: Install dependencies
-        run: |
-          cd backend
-          pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: |
+#           cd backend
+#           pip install -r requirements.txt
 
-      - name: Run Flask && HTTP requests
-        run: |
-          cd backend
-          export FLASK_APP=app
-          export FLASK_ENV=development
-          export USER_NAME=guest
-          export PASSWORD=guest-password
-          python3 init_db.py
-          nohup flask run --host=0.0.0.0 --port=5000 & 
-          sleep 5 
-          http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
-            Content-Type:application/json \
-            todo="test"
+#       - name: Run Flask && HTTP requests
+#         run: |
+#           cd backend
+#           export FLASK_APP=app
+#           export FLASK_ENV=development
+#           export USER_NAME=guest
+#           export PASSWORD=guest-password
+#           python3 init_db.py
+#           nohup flask run --host=0.0.0.0 --port=5000 & 
+#           sleep 5 
+#           http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
+#             Content-Type:application/json \
+#             todo="test"
 
-          http GET http://127.0.0.1:5000/api/v1/todos
+#           http GET http://127.0.0.1:5000/api/v1/todos
 
-          http --ignore-stdin PATCH http://127.0.0.1:5000/api/v1/update \
-            Content-Type:application/json \
-            todo="test" \
-            isFinished=true
+#           http --ignore-stdin PATCH http://127.0.0.1:5000/api/v1/update \
+#             Content-Type:application/json \
+#             todo="test" \
+#             isFinished=true
 
-          http --ignore-stdin DELETE http://127.0.0.1:5000/api/v1/delete \
-            Content-Type:application/json \
-            todo="test"
+#           http --ignore-stdin DELETE http://127.0.0.1:5000/api/v1/delete \
+#             Content-Type:application/json \
+#             todo="test"
