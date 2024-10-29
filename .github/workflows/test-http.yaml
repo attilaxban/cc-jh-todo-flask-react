@@ -9,10 +9,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9' 
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
       - name: Run Flask
         run: |
           cd backend
-          pip3 install -r requirements.txt
           export FLASK_APP=app
           export FLASK_ENV=development
           nohup flask run --host=0.0.0.0 --port=5000 & 
@@ -25,7 +34,11 @@ jobs:
 
       - name: Run HTTP requests
         run: |
-          http POST http://localhost:5000/api/v1/create \
+          # Check if Flask is running
+          curl -f http://localhost:5000/api/v1/todos || exit 1
+          
+          # Run the HTTP requests
+          http --ignore-stdin POST http://localhost:5000/api/v1/create \
             Content-Type:application/json \
             todo="test"
 
@@ -38,4 +51,4 @@ jobs:
 
           http DELETE http://localhost:5000/api/v1/delete \
             Content-Type:application/json \
-            todo="test"
+            id:=10  # Only sending id for deletion
