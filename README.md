@@ -11,8 +11,6 @@ A simple Flask application that manages a TODO list using PostgreSQL as the data
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Backend Setup](#backend-setup)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -29,6 +27,7 @@ A simple Flask application that manages a TODO list using PostgreSQL as the data
 - **PostgreSQL**: Database management system to store TODO items.
 - **psycopg2**: PostgreSQL adapter for Python.
 - **dotenv**: To manage environment variables.
+- **GitHub Action**: Push request triggers the action to run some http test with HTTPie
 
 ## Installation
 
