@@ -19,6 +19,15 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Set up PostgreSQL
+        run: |
+          sudo apt install postgresql
+          sudo apt-get install postgresql-server
+          sudo -iu postgres psql
+          CREATE DATABASE todo_db;
+          CREATE USER 'guest' WITH PASSWORD 'guest-password';
+          GRANT ALL PRIVILEGES ON DATABASE todo_db TO guest;
+
       - name: Install dependencies
         run: |
           cd backend
@@ -29,8 +38,8 @@ jobs:
           cd backend
           export FLASK_APP=app
           export FLASK_ENV=development
-          export USERN_NAME=${{ secrets.USER_NAME }}
-          export PASSWORD=${{ secrets.PASSWORD }} 
+          export USER_NAME=guest
+          export PASSWORD=guest-password
           nohup flask run --host=0.0.0.0 --port=5000 & 
           sleep 5 
           http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
