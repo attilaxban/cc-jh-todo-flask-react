@@ -49,10 +49,6 @@ def update():
         todo = data.get('todo')
         is_finished = data.get('isFinished')  
 
-
-        if todo_id is None or is_finished is None:
-            return jsonify({'error': 'ID and isFinished status are required'}), 400
-
         conn = get_db_connection()
         cur = conn.cursor()
         
