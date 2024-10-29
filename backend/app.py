@@ -46,7 +46,7 @@ def create():
 def update():
     if request.method == 'PATCH':
         data = request.json
-        todo_id = data.get('id')
+        todo = data.get('todo')
         is_finished = data.get('isFinished')  
 
 
@@ -57,8 +57,8 @@ def update():
         cur = conn.cursor()
         
         cur.execute(
-            'UPDATE todos SET isFinished = %s WHERE id = %s',
-            (is_finished, todo_id)
+            'UPDATE todos SET isFinished = %s WHERE todo = %s',
+            (is_finished, todo)
         )
         
         conn.commit()
