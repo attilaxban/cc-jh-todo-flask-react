@@ -1,0 +1,39 @@
+name: Run HTTP Requests
+
+on: [push]
+
+jobs:
+  run-http-requests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Flask
+        run: |
+            pip3 install -r requirements
+            export FLASK_APP=app
+            export FLASK_ENV=development
+            flask run
+
+      - name: Install HTTPie
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y httpie
+
+      - name: Run HTTP requests
+        run: |
+          http --ignore-stdin POST http://localhost:5000/api/v1/create \
+            Content-Type:application/json \
+            todo="test"
+          
+          http GET http://localhost:5000/api/v1/todos
+
+          http PATCH http://localhost:5000/api/v1/update \
+            Content-Type:application/json \
+            id:=9 \
+            isFinished=true
+
+          http DELETE http://localhost:5000/api/v1/delete \
+            Content-Type:application/json \
+            id:=10

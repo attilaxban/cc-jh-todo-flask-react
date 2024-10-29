@@ -1,0 +1,28 @@
+###
+POST http://localhost:5000/api/v1/create
+Content-Type: application/json
+
+{
+  "todo": "test"
+}
+
+###
+GET http://localhost:5000/api/v1/todos
+
+###
+PATCH http://localhost:5000/api/v1/update
+Content-Type:  application/json
+
+{
+    "id" : 9,
+    "isFinished": "true"
+}
+
+###
+DELETE http://localhost:5000/api/v1/delete
+Content-Type: application/json
+
+{
+    "id" : 10
+}
+
