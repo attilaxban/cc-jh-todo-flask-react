@@ -35,20 +35,20 @@ jobs:
       - name: Run HTTP requests
         run: |
           # Check if Flask is running
-          curl -f http://localhost:5000/api/v1/todos || exit 1
+          curl -f http://127.0.0.1:5000/api/v1/todos || exit 1
           
           # Run the HTTP requests
-          http --ignore-stdin POST http://localhost:5000/api/v1/create \
+          http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
             Content-Type:application/json \
             todo="test"
 
-          http GET http://localhost:5000/api/v1/todos
+          http GET http://127.0.0.1:5000/api/v1/todos
 
-          http PATCH http://localhost:5000/api/v1/update \
+          http PATCH http://127.0.0.1:5000/api/v1/update \
             Content-Type:application/json \
             id:=9 \
             isFinished=true
 
-          http DELETE http://localhost:5000/api/v1/delete \
+          http DELETE http://127.0.0.1:5000/api/v1/delete \
             Content-Type:application/json \
             id:=10  # Only sending id for deletion
