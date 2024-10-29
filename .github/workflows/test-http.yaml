@@ -41,6 +41,7 @@ jobs:
           export FLASK_ENV=development
           export USER_NAME=guest
           export PASSWORD=guest-password
+          python3 run init_db.py
           nohup flask run --host=0.0.0.0 --port=5000 & 
           sleep 5 
           http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
