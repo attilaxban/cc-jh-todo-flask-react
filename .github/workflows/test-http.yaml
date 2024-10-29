@@ -34,10 +34,6 @@ jobs:
 
       - name: Run HTTP requests
         run: |
-          # Check if Flask is running
-          curl -f http://127.0.0.1:5000/api/v1/todos || exit 1
-          
-          # Run the HTTP requests
           http --ignore-stdin POST http://127.0.0.1:5000/api/v1/create \
             Content-Type:application/json \
             todo="test"
