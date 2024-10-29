@@ -20,18 +20,13 @@ jobs:
           python-version: "3.9"
 
       - name: Set up PostgreSQL
-        run: |
-          sudo apt install postgresql
-          sudo apt-get install postgresql-server
-          curl -O http://yum.postgresql.org/9.3/redhat/rhel-5-x86_64/pgdg-centos93-9.3-1.noarch.rpm
-          sudo rpm -i RPM
-          sudo yum install postgresql93 postgresql93-odbc
-          sudo service postgresql-9.3 initdb
-          sudo service postgresql-9.3 start
-          sudo -iu postgres psql
-          CREATE DATABASE todo_db;
-          CREATE USER 'guest' WITH PASSWORD 'guest-password';
-          GRANT ALL PRIVILEGES ON DATABASE todo_db TO guest;
+        uses: ./backend
+        with:
+          username: guest
+          password: guest-password
+          database: todo_db
+          port: 5432
+          ssl: true
 
       - name: Install dependencies
         run: |
