@@ -67,7 +67,7 @@ export FLASK_APP=app
 export FLASK_ENV=development
 flask run
 ```
-By default, the app will run on `http://0.0.0.0:5000`. You can access the API at the following endpoints:
+By default, the app will run on `http://0.0.0.0:5000`. You can access the API at the following endpoints or you can use the test requests from test.http with a REST Client:
 
 - `GET /api/v1/todos`: Retrieve the list of TODO items.
 - `POST /api/v1/create`: Create a new TODO item.
