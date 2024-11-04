@@ -9,7 +9,7 @@ function App() {
   const [newTodo, setNewTodo] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function App() {
   }, [searchTerm, todos]);
 
   const handleSearch = () => {
-    const searchedTodos = todos.filter(todo => 
+    const searchedTodos = todos.filter((todo) =>
       todo[1].toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredTodos(searchedTodos);
@@ -35,11 +35,11 @@ function App() {
         <button onClick={toggleCreateMode}>
           {isCreating ? "Close" : "New Item"}
         </button>
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Search Todos"
-          value={searchTerm} 
-          onChange={(e) => setSearchTerm(e.target.value)} 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         {!isCreating ? (
           <table>
@@ -56,19 +56,30 @@ function App() {
               {filteredTodos.map((todo) => (
                 <tr key={todo[0]}>
                   <td>{todo[0]}</td>
-                  <td>{todo[1]}</td>
+                  <td>
+                    {todo[1]
+                      .split(" ")
+                      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                      .join(" ")}
+                  </td>{" "}
                   <td>{new Date(todo[2]).toLocaleDateString()}</td>
                   <td>
                     <input
                       type="checkbox"
                       checked={todo[3]}
-                      onChange={(e) => updateTodoStatus(e, todo[1], !todo[3], setTodos, setIsCreating)}
+                      onChange={(e) =>
+                        updateTodoStatus(
+                          e,
+                          todo[1],
+                          !todo[3],
+                          setTodos,
+                          setIsCreating
+                        )
+                      }
                     />
                   </td>
                   <td>
-                    <button
-                      onClick={(e) => deleteTodo(e, todo[1], setTodos)}
-                    >
+                    <button onClick={(e) => deleteTodo(e, todo[1], setTodos)}>
                       Delete
                     </button>
                   </td>
@@ -77,7 +88,9 @@ function App() {
             </tbody>
           </table>
         ) : (
-          <form onSubmit={(e) => createTodo(e, newTodo, setTodos, setIsCreating)}>
+          <form
+            onSubmit={(e) => createTodo(e, newTodo, setTodos, setIsCreating)}
+          >
             <label>To-Do</label>
             <input
               type="text"
