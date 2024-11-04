@@ -90,4 +90,4 @@ Here’s a quick overview of the available API endpoints:
 - **PATCH /api/v1/update**: Updates the completion status of a TODO item.
   - Request body should contain JSON data with keys `id` (the TODO item ID) and `isFinished` (boolean value).
 - **DELETE /api/v1/delete**: Deletes a TODO item.
-  - Request body should contain JSON data with the key `id` (the TODO item ID).
+  - Request body should contain JSON data with the key `id` (the TODO item ID)..
