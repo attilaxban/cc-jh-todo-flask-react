@@ -3,15 +3,15 @@ import psycopg2
 import os
 from dotenv import load_dotenv, dotenv_values
 load_dotenv()
+from flask_cors import CORS
+
+
 
 app = Flask(__name__)
+CORS(app)
 
 def get_db_connection():
-    conn = psycopg2.connect(host='localhost',
-                            database='todo_db',
-                            user=os.getenv('USER_NAME'),
-                            password=os.getenv('PASSWORD')
-    )
+    conn = psycopg2.connect(os.getenv('DB_URL'))
     return conn
 
 @app.route('/api/v1/todos')
@@ -86,7 +86,7 @@ def delete():
     
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=4000, debug=True)
 
         
     
