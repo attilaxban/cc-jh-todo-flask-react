@@ -9,16 +9,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-
-      - name: Install dependencies
-        run: |
-          cd backend
-          pip install -r requirements.txt
-
       - name: Install HTTPie
         run: |
           sudo apt-get update
@@ -32,7 +22,7 @@ jobs:
 
       - name: Start application
         run: |
-          docker compose up --build
+          docker compose up -d --build
 
       - name: Run HTTP Tests
         run: |
