@@ -5,6 +5,7 @@ services:
     build:
       context: ./backend
     container_name: backend
+    image: attilaxban/backend_flask:latest
     ports:
       - "4000:4000"
     environment:
@@ -29,6 +30,7 @@ services:
     build:
       context: ./frontend
     container_name: frontend
+    image: attilaxban/frontend_vite:latest
     ports:
       - '80:80'
     depends_on:
