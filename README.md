@@ -10,7 +10,8 @@ A simple Flask application that manages a TODO list using PostgreSQL as the data
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [Backend Setup](#backend-setup)
+- [Running the Backend](#running-the-backend)
+- [Running the Frontend](#running-the-frontend)
 
 ## Features
 
@@ -22,11 +23,12 @@ A simple Flask application that manages a TODO list using PostgreSQL as the data
 ## Technologies Used
 
 - **Python**: Programming language used for the backend.
-- **React-Vite + TypeScript** : Programming language used for the frontend.
+- **React-Vite + Javascript** : Programming language used for the frontend.
 - **Flask**: Web framework for building the API.
 - **PostgreSQL**: Database management system to store TODO items.
 - **psycopg2**: PostgreSQL adapter for Python.
 - **dotenv**: To manage environment variables.
+- **Docker**: The application is containerized so you can run the full application with ***docker compose up -d --build*** command
 - **GitHub Action**: Push request triggers the action to run some http test with HTTPie
 
 ## Installation
@@ -58,7 +60,7 @@ This backend is built using Flask and communicates with a PostgreSQL database to
 
 The application includes a script that will automatically create the necessary database and table if they do not exist. Upon running the backend for the first time, it will drop the existing `todos` table (if any) and create a new one with the necessary fields.
 
-### Running the Application
+### Running the Backend
 
 To start the Flask application, run the following command in your terminal:
 
@@ -67,12 +69,30 @@ export FLASK_APP=app
 export FLASK_ENV=development
 flask run
 ```
-By default, the app will run on `http://0.0.0.0:5000`. You can access the API at the following endpoints or you can use the test requests from test.http with a REST Client:
+By default, the app will run on `http://0.0.0.0:4000`. You can access the API at the following endpoints or you can use the test requests from test.http with a REST Client:
 
 - `GET /api/v1/todos`: Retrieve the list of TODO items.
 - `POST /api/v1/create`: Create a new TODO item.
 - `PATCH /api/v1/update`: Update the status of an existing TODO item.
 - `DELETE /api/v1/delete`: Delete a TODO item.
+
+### Running the Frontend
+
+To start the frontend run the following command in your terminal:
+
+ ```bash
+ cd frontend
+ npm install
+ npm run dev
+ ```
+
+ ### Run the Application with docker-compose:
+
+ To start the application with docker compose run the following command in your terminal:
+
+ ```bash
+ docker compose up -d --build
+ ```
 
 ### Important Notes
 
@@ -88,7 +108,7 @@ Here’s a quick overview of the available API endpoints:
 - **POST /api/v1/create**: Adds a new TODO item.
   - Request body should contain JSON data with the key `todo`.
 - **PATCH /api/v1/update**: Updates the completion status of a TODO item.
-  - Request body should contain JSON data with keys `id` (the TODO item ID) and `isFinished` (boolean value).
+  - Request body should contain JSON data with keys `todo` (the TODO item's name) and `isFinished` (boolean value).
 - **DELETE /api/v1/delete**: Deletes a TODO item.
   - Request body should contain JSON data with the key `id` (the TODO item ID)..
 
